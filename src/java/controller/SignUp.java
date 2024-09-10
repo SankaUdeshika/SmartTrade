@@ -34,14 +34,11 @@ public class SignUp extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("1");
         Response_DTO response_DTO = new Response_DTO(); // mekata thama Data tika mulinma danne
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create(); // password eke get eka access nathi karala anith ewage access dena GSON object eka
 
         User_DTO user_dto = gson.fromJson(request.getReader(), User_DTO.class); // request eke ena Data tika Assign karagannawa DTO ekata
-
-        System.out.println("2");
 
 //        Validation
         if (user_dto.getFirst_name().isEmpty()) {
@@ -60,23 +57,18 @@ public class SignUp extends HttpServlet {
                     + "include at least one uppercase letter, number, special "
                     + "charachter and 8 charachters) ");
         } else {
-            System.out.println("3");
 
 //            Search is User already registerd?
             Session session = HibernateUtil.getSessionFactory().openSession();
             Criteria criteria = session.createCriteria(User.class);
             criteria.add(Restrictions.eq("email", user_dto.getEmail()));
-            System.out.println("4");
 
             if (!criteria.list().isEmpty()) {
                 response_DTO.setContent("User with this Email already Exists");
             } else {
-                System.out.println("5");
 
 //                Generate Verification Code
                 int code = (int) (Math.random() * 1000000);
-
-                System.out.println("6");
 
 //                USer Entity ekata DTO eke dewl tika dagena yanawa.
                 User user = new User();
@@ -85,11 +77,15 @@ public class SignUp extends HttpServlet {
                 user.setLast_name(user_dto.getLast_name());
                 user.setPassword(user_dto.getPassword());
                 user.setVerification(String.valueOf(code));
-                System.out.println("7");
 
 //                send Verification Mail
-                Mail.sendMail(user_dto.getEmail(), "Smart Trade Verification", "<h1 style =\"color:#6482AD\"> Your Verificaiton Code :" + user.getVerification() + "</h1>");
-                System.out.println("8");
+                Thread sendMailThread = new Thread() {
+                    @Override
+                    public void run() {
+                        Mail.sendMail(user_dto.getEmail(), "Smart Trade Verification", "<h1 style =\"color:#6482AD\"> Your Verificaiton Code :" + user.getVerification() + "</h1>");
+                    }
+                };
+//                sendMailThread.start(); // Mail Thread eka Start karagannawa.
 
                 session.save(user); // hadapu session ekata User wa damma
                 session.beginTransaction().commit();// Session eka Database ekata Insert eka kara.
@@ -98,17 +94,14 @@ public class SignUp extends HttpServlet {
 //                Response eke thiyena  Details fill karanawa
                 response_DTO.setSuccess(true);
                 response_DTO.setContent("Registration Complete, Please Verify your acoount to sign in");
-                System.out.println("10");
 
             }
             session.close(); // close Session
         }
-        System.out.println("11");
 
         response.setContentType("application/json"); // Content Type eka dannama oni JS eken Allaganna
         response.getWriter().write(gson.toJson(response_DTO)); // response eka widihata responseDTO eka json Object ekak widiahata hdala danawa.
         System.out.println(gson.toJson(response_DTO));
-        System.out.println("12");
 
     }
 

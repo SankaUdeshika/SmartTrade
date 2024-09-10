@@ -1,9 +1,6 @@
-async  function signup() {
-
+async  function signIn() {
 
     const user_dto = {
-        first_name: document.getElementById("firstName").value,
-        last_name: document.getElementById("lastName").value,
         email: document.getElementById("email").value,
         password: document.getElementById("password").value,
     };
@@ -11,7 +8,7 @@ async  function signup() {
 
 
 
-    const response = await fetch("SignUp",
+    const response = await fetch("SignIn",
             {
                 method: "POST",
                 body: JSON.stringify(user_dto),
@@ -24,19 +21,29 @@ async  function signup() {
     if (response.ok) {
         //response eke ena JSON eka ganne meken
         const json = await response.json();
-
         if (json.success) {
-            console.log(json); // json object ekama print karagannawa
-            window.location = "verify-account.html"
-            document.getElementById("message").innerHTML = json.content;
+            window.location = 'index.html';
         } else {
-            document.getElementById("message").innerHTML = json.content;
+            if (json.content == "Unverified") {
+                window.location = "verify-account.html"
+            } else {
+                document.getElementById("message").innerHTML = json.content;
+            }
         }
+
+
+
+
+
+
     } else {
         document.getElementById("message").innerHTML = "Please Try again Later";
         console.log("error");
     }
 
 }
+
+
+
 
 
