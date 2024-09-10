@@ -42,6 +42,7 @@ public class SignIn extends HttpServlet {
             response_DTO.setContent("Please enter Your password");
         } else {
             Session session = HibernateUtil.getSessionFactory().openSession();
+            
             Criteria criteria = session.createCriteria(User.class);
             criteria.add(Restrictions.eq("email", user_DTO.getEmail()));
             criteria.add(Restrictions.eq("password", user_DTO.getPassword()));
@@ -52,7 +53,7 @@ public class SignIn extends HttpServlet {
                 if (!user.getVerification().equals("verified")) {
 //                    not Verified
 
-                    req.getSession().setAttribute("user", user_DTO.getEmail());
+                    req.getSession().setAttribute("email", user_DTO.getEmail());
                     response_DTO.setContent("Unverified");
 
                 } else {
