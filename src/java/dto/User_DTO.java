@@ -1,37 +1,31 @@
-package entity;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package dto;
 
+import com.google.gson.annotations.Expose;
 import java.io.Serializable;
-import javax.annotation.Generated;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "user")
-public class User implements Serializable {
+public class User_DTO implements Serializable {
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Expose
     private int id;
 
-    @Column(name = "first_name", length = 45, nullable = false)
+    @Expose
     private String first_name;
 
-    @Column(name = "last_name", length = 45, nullable = false)
+    @Expose
     private String last_name;
 
-    @Column(name = "email", length = 45, nullable = false)
+    @Expose
     private String email;
 
-    @Column(name = "password", length = 45, nullable = false)
+    @Expose(deserialize = true, serialize = false)
     private String password;
-
-    @Column(name = "verification", length = 10, nullable = false)
-    private String verification;
 
     /**
      * @return the id
@@ -103,21 +97,4 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    /**
-     * @return the verification
-     */
-    public String getVerification() {
-        return verification;
-    }
-
-    /**
-     * @param verification the verification to set
-     */
-    public void setVerification(String verification) {
-        this.verification = verification;
-    }
-
-    public void getVerification(String valueOf) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
