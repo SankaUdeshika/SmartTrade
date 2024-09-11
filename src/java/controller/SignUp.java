@@ -71,7 +71,7 @@ public class SignUp extends HttpServlet {
                 int code = (int) (Math.random() * 1000000);
 
 //                USer Entity ekata DTO eke dewl tika dagena yanawa.
-                User user = new User();
+                final User user = new User();
                 user.setEmail(user_dto.getEmail());
                 user.setFirst_name(user_dto.getFirst_name());
                 user.setLast_name(user_dto.getLast_name());

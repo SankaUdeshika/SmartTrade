@@ -94,9 +94,22 @@ async function productListing() {
         console.log(json.content);
 
         if (json.success) {
+            categorySelect.value = 0;
+            modelSelect.level = 1;
+            title.value = "";
+            storageSelect.value = 0;
+            colorSelect.value = 0;
+            price.value = "";
+            qty.value = 1;
+            image1.files = null;
+            image2.files = null;
+            image3.files = null;
+
+            document.getElementById("message").innerHTML = json.content;
+            document.getElementById("message").className = "text-success";
 
         } else {
-
+            document.getElementById("message").innerHTML = json.content;
         }
 
     } else {
