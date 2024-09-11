@@ -241,7 +241,7 @@
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label>Category</label>
-                                                            <select id="categorySelect">
+                                                            <select id="categorySelect" onchange="updateModels();">
                                                                 <option value="0">Select</option>
                                                             </select>
                                                         </div>
@@ -258,13 +258,13 @@
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label>Title</label>
-                                                            <input type="text" class="form-control" value="">
+                                                            <input type="text" class="form-control" id="title" value="">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label>Description</label>
-                                                            <textarea cols="1" rows="2"></textarea>
+                                                            <textarea cols="1" id="description" rows="2"></textarea>
                                                         </div>
                                                     </div>
 
@@ -297,34 +297,34 @@
                                                     <div class="col-lg-4">
                                                         <div class="form-group">
                                                             <label>Price</label>
-                                                            <input type="text" class="form-control" pattern="^\d+(\.\d{2})?$" placeholder="0.00">
+                                                            <input type="text" class="form-control" pattern="^\d+(\.\d{2})?$" id="price" placeholder="0.00">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4">
                                                         <div class="form-group">
                                                             <label>Quantity</label>
-                                                            <input type="number" class="form-control" min="1" value="1">
+                                                            <input type="number" id="qty" class="form-control" min="1" value="1">
                                                         </div>
                                                     </div> 
 
                                                     <div class="col-lg-4">
                                                         <label>Image 1</label>
-                                                        <input class="form-control b2" type="file" accept="image/*">
+                                                        <input class="form-control b2" type="file" accept="image/*" id="image1">
                                                     </div>
 
                                                     <div class="col-lg-4">
                                                         <label>Image 2</label>
-                                                        <input class="form-control b2" type="file" accept="image/*">
+                                                        <input class="form-control b2" type="file" accept="image/*" id="image2">
                                                     </div>
 
                                                     <div class="col-lg-4">
                                                         <label>Image 3</label>
-                                                        <input class="form-control b2" type="file" accept="image/*">
+                                                        <input class="form-control b2" type="file" accept="image/*" id="image3">
                                                     </div>
 
                                                     <div class="col-12">
                                                         <div class="form-group mb--0 mt--30 d-grid">
-                                                            <input type="submit" class="axil-btn" value="Add Product To Listing">
+                                                            <input type="button" onclick="productListing();" class="axil-btn" value="Add Product To Listing">
                                                         </div>
                                                     </div>
                                                 </div>
