@@ -107,9 +107,9 @@ async function productListing() {
             image3.files = null;
             
             Swal.fire({
-                title: 'Error!',
+                title: 'Success!',
                 text: json.content,
-                icon: 'error',
+                icon: 'success',
                 confirmButtonText: 'Cool'
             })
             
