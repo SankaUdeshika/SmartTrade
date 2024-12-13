@@ -41,6 +41,7 @@ function  loadSelect(selectTagId, list, property) {
 
 
 function  updateModels() {
+    alert("Working");
     let modelSelectTag = document.getElementById("modelSelect");
     modelSelectTag.length = 1;
     let SelectedCategoryID = document.getElementById("categorySelect").value;
@@ -104,11 +105,26 @@ async function productListing() {
             image1.files = null;
             image2.files = null;
             image3.files = null;
-
-            document.getElementById("message").innerHTML = json.content;
-            document.getElementById("message").className = "text-success";
+            
+            Swal.fire({
+                title: 'Error!',
+                text: json.content,
+                icon: 'error',
+                confirmButtonText: 'Cool'
+            })
+            
+            setTimeout(1000,()=>{
+                window.location.reload();
+            }) 
 
         } else {
+
+            Swal.fire({
+                title: 'Error!',
+                text: json.content,
+                icon: 'error',
+                confirmButtonText: 'Cool'
+            })
             document.getElementById("message").innerHTML = json.content;
         }
 

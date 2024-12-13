@@ -138,18 +138,16 @@ public class ProductListing extends HttpServlet {
                                     int pid = (int) session.save(product);
                                     session.beginTransaction().commit();
 
-                                    response_DTO.setSuccess(true);
-                                    response_DTO.setContent("New Product Added");
-
+//                                  Save Images----------------------------------------------------------------------------------------------
                                     String applicationPath = request.getServletContext().getRealPath(""); // normal build/web path eka gaththa
                                     String newApplicaitonPath = applicationPath.replace("build"+File.separator+"web", "web"); // source web ekata replace kara. - File.seperator kiyanne // mekata
 
-                                    File folder = new File(applicationPath + "//" + pid); // folder eka hadanawa
+                                    File folder = new File(newApplicaitonPath + "//product-images//"+pid); // folder eka hadanawa
                                     if (!folder.exists()) {// folder eka already hadilada balanawa
                                         folder.mkdir(); // folder eka exist naththan folder ekak hadanawa
-                                    }
+                                    } 
 
-                                    File file1 = new File(folder, +pid + "image1.png");// file object ekak handaawa.
+                                    File file1 = new File(folder, pid + "image1.png");// file object ekak handaawa.
                                     InputStream inputStream = image1.getInputStream(); // image eka input Stream ekak widihata gannawa
                                     Files.copy(inputStream, file1.toPath(), StandardCopyOption.REPLACE_EXISTING); // image eka hadagaththa path ekata object ekak widihata danawa.
 
@@ -159,7 +157,7 @@ public class ProductListing extends HttpServlet {
 
                                     File file3 = new File(folder, pid + "image3.png");
                                     InputStream inputStrea3 = image3.getInputStream();
-                                    Files.copy(inputStream, file3.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                                    Files.copy(inputStrea3, file3.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
                                     response_DTO.setSuccess(true);
                                     response_DTO.setContent("new Product Added");
